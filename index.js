@@ -26,18 +26,17 @@ const db = admin.firestore();
 */
 
 app.get('/posts', (request, response) => {
-    let posts =[
+  response.set('Access-Control-Allow-Origin','*')
+  let posts = []
+   db.collection('posts').orderBy('date', 'desc').get().then(snapshot=>
+
       {
-        caption:'Golden Gate Bridge',
-        location:'san Francisco'
-      },
-      {
-        caption:'London Eye',
-        location:'London'
-      }
-    ]
-    response.send(posts)
-  })
+      snapshot.forEach((doc)=>{
+         posts.push(doc.data())
+      });
+   response.send(posts)
+})
+})
 
 /*
     endpoint - createPosts
