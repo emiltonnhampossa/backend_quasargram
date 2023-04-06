@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": "18"
-  },
   "scripts": {
-    "dev":"nodemon",
+    "dev": "nodemon index.js",
     "start": "nodemon index.js"
   },
+  "Keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -1,6 +1,7 @@
 /*
     dependecias
 */
+
 const express = require('express')
 const admin = require('firebase-admin');
 
@@ -19,36 +20,38 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
- 
+
 /*
     endpoint
 */
 
 app.get('/posts', (request, response) => {
-    response.set('Access-Control-Allow-Origin','*')
-    let posts = []
-     db.collection('posts').orderBy('date', 'desc').get().then(snapshot=>
-        
-        {
-        snapshot.forEach((doc)=>{
-           posts.push(doc.data())
-        });
-     response.send(posts)
+    let posts =[
+      {
+        caption:'Golden Gate Bridge',
+        location:'san Francisco'
+      },
+      {
+        caption:'London Eye',
+        location:'London'
+      }
+    ]
+    response.send(posts)
   })
-})
 
 /*
     endpoint - createPosts
 */
 
-app.get('/createPost', (request, response) => {
+app.post('/createPost', (request, response) => {
     response.set('Access-Control-Allow-Origin','*')
-    response.send('createPost')
+    response.send(request.headers)
 })
-    
+
 /*
     listen
 */
 
+const port = process.env.PORT || 5000;
+app.listen(port,()=> console.log(`Listening to port ${port}`));
 
-app.listen(process.env.PORT || 3000) 
